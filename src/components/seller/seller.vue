@@ -1,5 +1,5 @@
 <template>
-	<div class="goods">
+	<div class="seller">
 		<p>我是seller!</p>
 	</div>
 </template>

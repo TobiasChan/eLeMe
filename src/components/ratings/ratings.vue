@@ -1,5 +1,5 @@
 <template>
-  <div class="goods">
+  <div class="ratings">
 	<p>我是ratings!</p>
   </div>
 </template>
