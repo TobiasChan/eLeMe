@@ -28,19 +28,23 @@
                   <span class="now">￥{{food.price}}</span>
                   <span class="old"  v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopcart from 'components/shopcart/shopcart.vue';
+  import cartcontrol from 'components/cartcontrol/cartcontrol.vue';
 
   const ERR_OK = 0;
 
@@ -67,6 +71,17 @@
           };
         };
         return 0;
+      },
+      selectFoods() {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
     },
     created() {
@@ -75,7 +90,6 @@
         response = response.body;
         if (response.errno === ERR_OK) {
           this.goods = response.data;
-          console.log(this.goods);
           // this.$nextTick() => 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM
           // 数据发生变化后，不能直接更新在dom上，需要在回调函数中刷新DOM,即异步加载DOM
           this.$nextTick(() => { // 初始化scroll
@@ -102,6 +116,7 @@
           click: true  // better-scroll被允许点击
         });
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          click: true,
           probeType: 3
         });
         this.foodsScroll.on('scroll', (pos) => {
@@ -120,7 +135,8 @@
       }
     },
     components: {
-      shopcart
+      shopcart,
+      cartcontrol
     }
   };
 </script>
@@ -226,4 +242,9 @@
               text-decoration: line-through
               font-size: 10px
               color: rgb(147, 153, 159)
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px
+            z-index: 20
 </style>

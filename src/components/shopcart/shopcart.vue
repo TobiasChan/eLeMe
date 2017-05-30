@@ -13,13 +13,22 @@
   	  </div>
   	  <div class="content-right">
         <div class="pay" :class="payClass">{{payDesc}}</div>
-        <!--:class="{'enough':totalPrice>=minPrice}"-->
+        <!-- :class="{'enough':totalPrice>=minPrice}"-->
       </div>
   	</div>
+    <div class="ball-container">
+      <transition-group name="drop">
+        <div class="ball" v-show="ball.show" v-for="(ball,index) in balls" key="<div>">
+          <div class="inner inner-hook"></div>
+        </div>
+      </transition-group>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  // import cartcontrol from 'components/cartcontrol/cartcontrol';
+
   export default {
     props: {
       selectFoods: {
@@ -41,6 +50,30 @@
         type: Number,
         default: 0
       }
+    },
+    data() {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ]
+      };
+    },
+    created() {
+      this.$root.eventHub.$on('cart.add', this.drop);
     },
     computed: {
       totalPrice() {
@@ -74,7 +107,15 @@
           return `enough`;
         }
       }
+    },
+    methods: {
+      drop(el) {
+        console.log(el);
+      }
     }
+    /* components: {
+      cartcontrol
+    } */
   };
 </script>
 
@@ -167,4 +208,18 @@
             background: #00b43c
           &.not-enough
             background: #2b333b
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        &.drop-enter, &drop-enter-active
+          transition all 0.4s
+        .inner
+          width: 16px
+          height: 16px
+          border-radius: 50%
+          background: rgb(0, 160, 220)
+          transition: all 0.4s linear
 </style>
