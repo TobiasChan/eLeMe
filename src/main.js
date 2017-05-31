@@ -7,6 +7,7 @@ import App from './App';
 import goods from 'components/goods/goods.vue';
 import ratings from 'components/ratings/ratings.vue';
 import seller from 'components/seller/seller.vue';
+import Vuex from 'vuex';
 
 import 'common/stylus/index.styl';
 
@@ -14,6 +15,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(Vuex);
 
 const routes = [
   { path: '/goods', component: goods },
@@ -34,6 +36,10 @@ router.push('/goods');
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App), // 初始化router
+  // template: '<App/>',
+  // components: { App },
+  data: {
+    eventHub: new Vue()
+  }
 });

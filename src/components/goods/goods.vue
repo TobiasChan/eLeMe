@@ -45,8 +45,11 @@
   import BScroll from 'better-scroll';
   import shopcart from 'components/shopcart/shopcart.vue';
   import cartcontrol from 'components/cartcontrol/cartcontrol.vue';
+  import Vue from 'vue';
 
   const ERR_OK = 0;
+  /* eslint-disabled no-unused-vars */
+  const eventHub = new Vue();
 
   export default {
     props: {

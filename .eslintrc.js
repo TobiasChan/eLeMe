@@ -27,6 +27,7 @@ module.exports = {
     'semi': ['error', 'always'],
     // 缩进设为0
     'indent': 0,
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    'no-unused-vars': 0
   }
 }
