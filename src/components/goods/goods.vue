@@ -14,7 +14,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li v-for="food in item.foods" class="food-item" @click="selectFood(food,$event)">
               <div class="icon">
                 <img :src="food.icon" width="57" height="57">
               </div>
@@ -29,7 +29,7 @@
                   <span class="old"  v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartControl :food="food"></cartControl>
                 </div>
               </div>
             </li>
@@ -37,14 +37,16 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
+    <foodDetail v-if="selectedFood" :food="selectedFood" ref="food"></foodDetail>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
-  import shopcart from 'components/shopcart/shopcart.vue';
-  import cartcontrol from 'components/cartcontrol/cartcontrol.vue';
+  import shopCart from 'components/shopCart/shopCart.vue';
+  import cartControl from 'components/cartControl/cartControl.vue';
+  import foodDetail from 'components/foodDetail/foodDetail.vue';
   import Vue from 'vue';
 
   const ERR_OK = 0;
@@ -61,7 +63,8 @@
       return {
         goods: [],
         listHeight: [],
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: ''
       };
     },
     computed: {
@@ -113,6 +116,16 @@
         let el = foodList[index];
         this.foodsScroll.scrollToElement(el, 300);
       },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.selectedFood = food;
+        this.$nextTick(() => {
+          // 得到子组件foodDetail并调用show()
+          this.$refs.food.show();
+        });
+      },
       _initScroll() {
         // this.$refs: 取得DOM对象
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
@@ -138,8 +151,9 @@
       }
     },
     components: {
-      shopcart,
-      cartcontrol
+      shopCart,
+      cartControl,
+      foodDetail
     }
   };
 </script>
