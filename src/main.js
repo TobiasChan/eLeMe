@@ -36,9 +36,9 @@ router.push('/goods');
 new Vue({
   el: '#app',
   router,
-  render: h => h(App), // 初始化router
-  // template: '<App/>',
-  // components: { App },
+  // render: h => h(App), // 初始化router
+  template: '<App/>',
+  components: { App },
   data: {
     eventHub: new Vue()
   }
