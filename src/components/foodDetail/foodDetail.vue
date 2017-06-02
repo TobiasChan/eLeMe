@@ -60,7 +60,7 @@
   import split from 'components/split/split.vue';
   import ratingSelect from 'components/ratingSelect/ratingSelect.vue';
   import Vue from 'vue';
-  import {formatDate} from 'common/js/time.js';
+  import {formatDate} from 'common/js/moment.js';
 
   const POSITIVE = 0;
   const NEGATIVE = 1;
