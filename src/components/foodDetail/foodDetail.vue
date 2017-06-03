@@ -40,7 +40,7 @@
                   <span class="name">{{rating.username}}</span>
                   <img class="avatar" width="12" height="12" :src="rating.avatar">
                 </div>
-                <div class="time">{{rating.rateTime| formatDate}}</div>
+                <div class="time">{{rating.rateTime | formatDate}}</div>
                 <p class="text">
                   <span :class="{'icon-thumb_up':rating.rateType===0, 'icon-thumb_down':rating.rateType===1}"></span>{{rating.text}}
                 </p>
@@ -90,29 +90,30 @@
         this.selectType= ALL;
         this.onlyContent= true;
         this.$nextTick(() => {
-          if (!this.foodDetail) {
-            this.foodDetail = new BScroll(this.$refs.foodDetail, {
+          if (!this.detailScroll) {
+            this.detailScroll = new BScroll(this.$refs.foodDetail, {
               click: true
             });
           } else {
-            this.foodDetail.refresh();
+            this.detailScroll.refresh();
           }
         });
       },
       select(type) {
         this.selectType = type;
         this.$nextTick(() => {
-          this.foodDetail.refresh();
+          this.detailScroll.refresh();
         });
       },
       toggleContent() {
         this.onlyContent = !this.onlyContent;
         this.$nextTick(() => {
-          this.foodDetail.refresh();
+          this.detailScroll.refresh();
         });
       },
       hide() {
         this.showFlag = false;
+        console.log('back');
       },
       addFirst(event) {
         if (!event._constructed) {
