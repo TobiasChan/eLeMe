@@ -101,14 +101,12 @@
         this.$nextTick(() => {
           this.ratingsScroll.refresh();
         });
-        console.log(this.selectType);
       },
       toggleContent() {
         this.onlyContent = !this.onlyContent;
         this.$nextTick(() => {
           this.ratingsScroll.refresh();
         });
-        console.log(this.onlyContent);
       },
       needShow(type, text) {
         if (this.onlyContent && !text) {

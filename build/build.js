@@ -2,7 +2,8 @@ require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
-var ora = require('ora')
+// 依赖
+var ora = require('ora') // 给长时间异步任务的提示
 var rm = require('rimraf')
 var path = require('path')
 var chalk = require('chalk')

@@ -21,6 +21,7 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
 //从此开始是导入data.json的参数
 var appData = require('../data.json')
 var seller = appData.seller
@@ -51,8 +52,6 @@ apiRoutes.get('/ratings', function (req, res) {
 })
 
 app.use('/api', apiRoutes)
-
-var compiler = webpack(webpackConfig)
 //由此结束对data.json参数的导入
 
 var compiler = webpack(webpackConfig)

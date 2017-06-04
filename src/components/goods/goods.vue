@@ -107,7 +107,6 @@
     },
     methods: {
       selectMenu(index, event) {
-        console.log(index);
         // 自己开发的event._constructed是为true，pc浏览器没有此事件
         if (!event._constructed) {
           return;

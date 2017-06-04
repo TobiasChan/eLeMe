@@ -113,7 +113,6 @@
       },
       hide() {
         this.showFlag = false;
-        console.log('back');
       },
       addFirst(event) {
         if (!event._constructed) {
